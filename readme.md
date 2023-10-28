@@ -31,6 +31,15 @@
 
 - str_to_date('17/11/08','%y/%m/%d'): date 값의 형식을 바꿈
 
+### 3. Function
+[Oracle to Mariadb]
+- DECODE(컬럼, 조건1, 결과1, 조건2, 결과2, 조건3, 결과3..........) : 오라클
+  - case
+     when 조건1  then  반환값
+     when 조건2  then  반환값
+     else 반환값
+    end
+
 ## [궁금증]
 
 ### 1. 테이블 생성
