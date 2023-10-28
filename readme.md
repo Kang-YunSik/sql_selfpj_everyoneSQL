@@ -40,6 +40,9 @@
      else 반환값
     end
 
+[fuction]
+- SUBSTR(str, pos, len) : str문자열을 pos번째 부터 len개 글자만 가져오기
+
 ## [궁금증]
 
 ### 1. 테이블 생성
