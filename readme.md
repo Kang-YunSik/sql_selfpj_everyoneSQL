@@ -54,16 +54,23 @@
 - ROUND(값, 자리수): 값을 자리수까지만 반올림하여 출력
 - CONCAT(str1, str2): 문자열 합치기
   - str1이 숫자이고, str2이 문자이면 str1을 문자로 자동 형변환이 적용된다.
-
+-  RANK() over  : 동률을 같은 등수로 처리. 다음 등수를 동률의 수 만큼 제외하고 등수로 매김 <br>
+   DENSE_RANK() over : 동률을 같은 등수로 처리하지만, 다음 등수를 동률의 수 만큼 제외하지 않고 바로 등수로 매김 <br>
+   ROW_NUMBER() over : 동률을 반영하지 않는다. 즉, 동일한 등수는 존재하지 않고 모든 행은 다른 등수를 가짐.
+   - PARTITION BY: 전체 순서가 아닌, 그룹별 순서로 순위를 매김
 ### 4. 조인
 [외부조인]
 -  테이블의 공통된 속성 외의 속성을 조회하고 싶을 때 외부조인을 한다.
   - [SQL문] <br>
-![OuterJoin.png](OuterJoin.png)
-    - [해석]<br>
-      order_info 테이블은 reservation 테이블을 외부 조인한다. <br>
-      두 테이블은 공통된 reserv_no 값과 A.cancel = 'N' 값을 갖고 있다. <br>
-      하지만, A테이블만 갖고 있는 A.cancel = 'Y'인 속성을 조회하고 싶다면, 외부조인을 해야 한다.
+```roomsql
+FROM reservation A LEFT OUTER JOIN order_info B
+ON A.reserv_no = B.reserv_no
+AND A.cancel = 'N'
+```
+[해석]<br>
+order_info 테이블은 reservation 테이블을 외부 조인한다. <br>
+두 테이블은 공통된 reserv_no 값과 A.cancel = 'N' 값을 갖고 있다. <br>
+하지만, A테이블만 갖고 있는 A.cancel = 'Y'인 속성을 조회하고 싶다면, 외부조인을 해야 한다.
 
 ### 5. 인라인 뷰
 - [개념] <br>
@@ -75,7 +82,27 @@
   4. 인라인 뷰(Inline View) 사용지 별칭을 지정해야 됩니다.
   5. 메인쿼리에서 인라인 뷰(Inline View)의 컬럼을 조회시 별칭을 지정해야 됩니다.
 - [예시] <br>
-![inlineView.png](inlineView.png)
+```roomsql
+FROM
+  -- 인라인 뷰 정의
+  (
+  SELECT A.reserv_date,
+  C.product_name,
+  -- STR_TO_DATE: 문자열 타입인 reserv_date를 date타입으로 변경
+  -- date_format: 해당 date 값 중에서 day의 값을 추출
+  -- % 7 연산으로 요일명을 정의할 때 용이하도록 함
+  (date_format(STR_TO_DATE(A.reserv_date, '%Y%m%d'),'%d') % 7 ) WEEK,
+  B.sales
+  -- 판매된 상품의 정보에서만 select
+  FROM reservation A, order_info B, item C
+  WHERE A.reserv_no = B.reserv_no
+  -- item_id='M0001'인 항목에 대해서만 select
+  AND   B.item_id   = C.item_id
+  AND   B.item_id = 'M0001'
+  -- 해당 결과 테이블을 A 테이블이라고 정의(인라인 뷰)
+  ) A 
+```
+
 ## [궁금증]
 
 ### 1. 테이블 생성
