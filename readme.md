@@ -22,8 +22,10 @@
 
 ### 1. 테이블 생성
 
-- CONSTRAINT PK*이름 PRIMARY KEY (적용 컬럼): PK*이름으로 PK를 생성합니다.
-- ALTER TABLE customer ADD CONSTRAINT fk_customer_zip_code FOREIGN KEY (zip_code) REFERENCES address (zip_code); : customer 테이블의 zip_code를 customer_zip_code이름으로 FOREIGN KEY로 지정하고, 이는 address 테이블의 (zip_code)를 참조한다.
+- CONSTRAINT PK*이름 PRIMARY KEY (적용 컬럼):
+  - PK*이름으로 적용 컬럼을 PK로 생성합니다.
+- ALTER TABLE customer <br> ADD CONSTRAINT fk_customer_zip_code <br> FOREIGN KEY (zip_code) <br>REFERENCES address (zip_code);: 
+  - customer 테이블의 zip_code를 customer_zip_code이름으로 FOREIGN KEY로 지정하고, <br> 이는 address 테이블의 (zip_code)를 참조한다.
 
 ### 2. INSERT
 
@@ -34,15 +36,27 @@
 ### 3. Function
 [Oracle to Mariadb]
 - DECODE(컬럼, 조건1, 결과1, 조건2, 결과2, 조건3, 결과3..........) : 오라클
-  - case
-     when 조건1  then  반환값
-     when 조건2  then  반환값
-     else 반환값
-    end
+  - case <br>
+     when 조건1  then  반환값 <br>
+     when 조건2  then  반환값 <br>
+     else 반환값 <br>
+    end<br>
 
 [fuction]
 - SUBSTR(str, pos, len) : str문자열을 pos번째 부터 len개 글자만 가져오기
 - ROUND(값, 자리수): 값을 자리수까지만 반올림하여 출력
+
+### 4. 조인
+[외부조인]
+-  테이블의 공통된 속성 외의 속성을 조회하고 싶을 때 외부조인을 한다.
+  - [SQL문]
+    <br> FROM reservation A LEFT OUTER JOIN order_info B <br>
+    ON A.reserv_no = B.reserv_no <br>
+    AND A.cancel = 'N' <br>
+    - [해석]<br>
+      order_info 테이블은 reservation 테이블을 외부 조인한다. <br>
+      두 테이블은 공통된 reserv_no 값과 A.cancel = 'N' 값을 갖고 있다. <br>
+      하지만, A테이블만 갖고 있는 A.cancel = 'Y'인 속성을 조회하고 싶다면, 외부조인을 해야 한다.
 
 ## [궁금증]
 
