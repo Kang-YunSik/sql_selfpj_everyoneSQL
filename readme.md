@@ -42,6 +42,7 @@
 
 [fuction]
 - SUBSTR(str, pos, len) : str문자열을 pos번째 부터 len개 글자만 가져오기
+- ROUND(값, 자리수): 값을 자리수까지만 반올림하여 출력
 
 ## [궁금증]
 
