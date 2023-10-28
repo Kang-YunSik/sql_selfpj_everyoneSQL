@@ -45,6 +45,8 @@
 [fuction]
 - SUBSTR(str, pos, len) : str문자열을 pos번째 부터 len개 글자만 가져오기
 - ROUND(값, 자리수): 값을 자리수까지만 반올림하여 출력
+- CONCAT(str1, str2): 문자열 합치기
+  - str1이 숫자이고, str2이 문자이면 str1을 문자로 자동 형변환이 적용된다.
 
 ### 4. 조인
 [외부조인]
