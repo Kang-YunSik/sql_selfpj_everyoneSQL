@@ -10,7 +10,7 @@
 2. oracle 문법을 mariadb 문법으로 바꾸기
 3. 기본 SQL문을 학습하고, 데이터 분석 실습을 통해 실무에서 SQL 활용을 학습.
 
-## [ERD]
+## [ERD] <br>
 
 ![Alt text](ERD.png)
 1. 테이블은 customer, address, reservation, order_info, item으로 구성되어 있다.
@@ -35,12 +35,19 @@
 
 ### 3. Function
 [Oracle to Mariadb]
-- DECODE(컬럼, 조건1, 결과1, 조건2, 결과2, 조건3, 결과3..........) : 오라클
+- DECODE(컬럼, 조건1, 결과1, 조건2, 결과2, 조건3, 결과3..........) 
   - case <br>
-     when 조건1  then  반환값 <br>
-     when 조건2  then  반환값 <br>
-     else 반환값 <br>
-    end<br>
+       when 조건1  then  반환값 <br>
+       when 조건2  then  반환값 <br>
+       else 반환값 <br>
+      end<br>
+- TO_DATE("문자열", "날짜 포맷"): 문자열을 날짜 데이터로 변경
+  - STR_TO_DATE(str, format)
+  - format 종류: <br> 
+    %Y=4자리 년도, %y=2자리 년도 <br>
+    %m=2자리 월, %d=2자리 일 <br>
+- TO-CHAR("날자 데이터", '반환'): 날자 데이터에서 특정 포맷을 반환
+  - DATE_FORMAT(date, '출력할 포맷')
 
 [fuction]
 - SUBSTR(str, pos, len) : str문자열을 pos번째 부터 len개 글자만 가져오기
@@ -51,15 +58,24 @@
 ### 4. 조인
 [외부조인]
 -  테이블의 공통된 속성 외의 속성을 조회하고 싶을 때 외부조인을 한다.
-  - [SQL문]
-    <br> FROM reservation A LEFT OUTER JOIN order_info B <br>
-    ON A.reserv_no = B.reserv_no <br>
-    AND A.cancel = 'N' <br>
+  - [SQL문] <br>
+![OuterJoin.png](OuterJoin.png)
     - [해석]<br>
       order_info 테이블은 reservation 테이블을 외부 조인한다. <br>
       두 테이블은 공통된 reserv_no 값과 A.cancel = 'N' 값을 갖고 있다. <br>
       하지만, A테이블만 갖고 있는 A.cancel = 'Y'인 속성을 조회하고 싶다면, 외부조인을 해야 한다.
 
+### 5. 인라인 뷰
+- [개념] <br>
+  FROM절에서 사용되는 서브쿼리 이며, 서브쿼리에서 조회한 결과를 하나의 테이블처럼 사용하고 싶을때 사용됩니다
+- [주의사항] <br>
+  1. 인라인 뷰(Inline View) 서브쿼리는 SELECT 문으로만 작성이 가능합니다
+  2. 인라인 뷰(Inline View) 서브쿼리는 ( ) - "괄호" 안에 작성해야 됩니다.
+  3. 인라인 뷰(Inline View) 서브쿼리에서 조회한 컬럼만 메인쿼리에서 조회가 가능합니다.
+  4. 인라인 뷰(Inline View) 사용지 별칭을 지정해야 됩니다.
+  5. 메인쿼리에서 인라인 뷰(Inline View)의 컬럼을 조회시 별칭을 지정해야 됩니다.
+- [예시] <br>
+![inlineView.png](inlineView.png)
 ## [궁금증]
 
 ### 1. 테이블 생성
